@@ -1,67 +1,25 @@
 var colors = [];
 
-colors['Alessandra'] = '#FF00FF';
-colors['Brasil'] = '#68FFA0';
-colors['Cadu'] = '#8472FF';
-colors['Caio'] = '#191970';
-colors['Cesar'] = '#F0E68C';
-colors['Diego'] = '#FF0980';
-colors['Diogo A'] = '#F79646';
-colors['Diogo H'] = '#32CD99';
-colors['Erika'] = '#667C00';
-colors['Fabiano Loures'] = '#DDEEEE';
-colors['Fabio'] = '#FF261B';
-colors['Felipe'] = '#BB2412';
-colors['Fernando Conde'] = '#84180F';
-colors['Fernando R'] = '#FFD700';
-colors['Greg'] = '#7A5B53';
-colors['Gustavo'] = '#F0E68C';
-colors['Henrique C'] = '#000080';
-colors['Hercules'] = '#00FF00';
-colors['Kleber'] = '#00B0F0';
-colors['Marcelo H'] = '#31869B';
-colors['Marcelo A'] = '#66CDAA';
-colors['Marcio H'] = '#5188FF';
-colors['Mario'] = '#F0E68C';
-colors['Natalia'] = '#A020F0';
-colors['Navarro'] = '#000080';
-colors['Patricia'] = '#808000';
-colors['Pedro'] = '#00FFFF';
-colors['Rafael'] = '#667C82';
-colors['Romulo'] = '#BB2412';
-colors['Ronaldo'] = '#000000';
-colors['Sirlane'] = '#F0E68C';
-colors['Thiago Cola'] = '#FF6961';
-colors['Vanessa'] = '#FFFF00';
-colors['Vinicius'] = '#0000FF';
-colors['Waldemir'] = '#FF7F50';
-colors['Markonds'] = '#EEDDEE';
-colors['Marcus V.'] = '#5188FF';
-colors['Joao'] = '#00B0F0';
-colors['Raul'] = '#FF5733';
-colors['Gabriel'] = '#2C8DF5';
-colors['Julio'] = '#11EE11';
-
-//terceiros
-colors['Jamile'] = '#8C8F8F';
-colors['Iata'] = '#AC8F8F';
-colors['Alex'] = '#BC8F8F';
-colors['Marcio S'] = '#CC8F8F';
-colors['Hiulli'] = '#DC8F8F';
-colors['Leonardo'] = '#EC8F8F';
-colors['Rafael M'] = '#FC8F8F';
-
-//não trabalham mais aqui
-//colors['Gabriel'] = '#EEEEEE';
-//colors['Thiago'] = '#EEEEEE';
-//colors['Welington'] = '#EEEEEE';
-//colors['Rodrigo'] = '#EEEEEE';
-//colors['Andre'] = '#EEEEEE';
-//colors['Arthur'] = '#EEEEEE';
+colors['Erika'] = '#FF00FF';
+colors['Greg'] = '#68FFA0';
+colors['Fabio'] = '#8472FF';
+colors['Henrique'] = '#191970';
+colors['Markonds'] = '#F0E68C';
+colors['Vanessa'] = '#FF0980';
+colors['Waldemir'] = '#F79646';
+colors['Jamile'] = '#32CD99';
+colors['Hiulli'] = '#667C00';
+colors['Marcelo'] = '#DDEEEE';
+colors['Fernando'] = '#FF261B';
+colors['Mario'] = '#BB2412';
+colors['Thiago'] = '#84180F';
+colors['Rafael'] = '#FFD700';
+colors['Felipe'] = '#7A5B53';
+colors['Diogo'] = '#F0E68C';
+colors['Gabriel'] = '#000080';
 
 
 var textcolors = [];
-
 
 
 function hexToRgb(hex) {
