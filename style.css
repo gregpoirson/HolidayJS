@@ -1,0 +1,99 @@
+body {
+  background-color: white;
+  font-family: sans-serif;
+}
+
+table.calendar {
+  border-collapse: collapse;
+}
+
+table.calendar tbody {
+  font-size: 0.8em;
+}
+
+table.calendar tr.nomeMes {
+  border-top: 2px solid darkgray;
+}
+
+table.calendar td {
+  text-align: center;
+  border: 1px solid lightgray;
+  min-width: 15px;
+}
+
+table.calendar td.tdcor {
+  text-align: center;
+  padding: 0px;
+}
+
+table.calendar td.hoje {
+	background: radial-gradient(circle closest-side, yellow, #f06d06);
+
+}
+table.calendar td.normal {
+	background-color: white;
+}
+table.calendar td.weekend {
+	background-color: lightgray;
+}
+
+table.calendar td.feriado {
+	background: repeating-linear-gradient(
+	  135deg,
+	  darkgray ,
+	  darkgray 5px,
+	  lightgray 5px,
+	  lightgray 10px
+	);
+	text-shadow: 0px 0px 5px rgba(00,00,00,0.5);
+	color:white;
+}
+
+table.calendar td.month-name {
+  font-weight: bold;
+  font-size: 1.2em;
+  text-align: center;
+  cursor: default;
+  text-shadow: 0px 0px 5px rgba(255,255,255,0.5);
+  background-color: darkgray;
+  //background-image: url('coqueiro_alpha.png');background-repeat:no-repeat;background-size:32px 32px;
+}
+
+table.ferias {
+  border-collapse: collapse;
+}
+
+table.ferias thead {
+  background-color: #5A5A5A;
+  color: white;
+  margin-bottom: 3px;
+}
+
+table.ferias thead th {
+  font-weight: normal;
+  padding: 5px 5px;
+}
+
+table.ferias tbody {
+  font-size: 0.8em;
+}
+
+table.ferias td {
+  text-align: center;
+  padding: 5px;
+  min-width: 15px;
+}
+
+table.ferias2 {
+  font-size:14px;
+  border-collapse: collapse;
+}
+
+table.ferias2 td {
+  text-align: center;
+  border: 1px solid lightgray;
+}
+
+.aAno {
+  font-size: 0.8em;
+}
