@@ -1,34 +1,36 @@
 // times ou projetos da área
 var times = [
-	{key:'', name:'All'},
-	{key:'GP', name:'All Teams GP'},
-	{key:'MH', name:'All Teams MH'},
+	{key:'', name:'Todos'},
+	{key:'GP', name:'Team Cap 1'},
+	{key:'MH', name:'Team Cap 2'},
 	{key:'GP XS4', name:'Squad CC'},
-	{key:'GP API', name:'Squad API'},
-	{key:'GP ADR', name:'Team System ADR'},
-	{key:'GP TERC', name:'All Consultants GP'},
-	{key:'GP OPIN', name:'Team OPIN'}
+	{key:'GP API', name:'Squad API'}
 ];
 
 var people_times = [];
 
-people_times['Erika'] = ['GP', 'GP ADR', 'GP XS4', 'GP API', 'MH', 'GP TERC', 'GP OPIN'];
+people_times['Erika'] = ['GP', 'GP XS4', 'GP API'];
 
-people_times['Greg'] = ['GP', 'GP ADR', 'GP XS4', 'GP API'];
-people_times['Fabio'] = ['GP', 'GP ADR'];
-people_times['Henrique'] = ['GP', 'GP API'];
-people_times['Markonds'] = ['GP', 'GP ADR'];
-people_times['Vanessa'] = ['GP', 'GP ADR'];
-people_times['Waldemir'] = ['GP', 'GP API'];
-
-people_times['Jamile'] = ['GP', 'GP TERC', 'GP ADR'];
-people_times['Hiulli'] = ['GP', 'GP TERC', 'GP XS4'];
-
-people_times['Marcelo'] = ['MH'];
-people_times['Fernando'] = ['MH'];
-people_times['Mario'] = ['MH'];
-people_times['Thiago'] = ['MH'];
-people_times['Rafael'] = ['MH'];
-people_times['Felipe'] = ['MH'];
-people_times['Diogo'] = ['MH'];
-people_times['Gabriel'] = ['MH'];
+people_times['Greg'] = ['GP', 'GP XS4', 'GP API'];
+people_times['Alessandra'] = ['GP'];
+people_times['Brasil'] = ['GP', 'GP API'];
+people_times['Cecilia'] = ['GP'];
+people_times['Cesar Barros'] = ['GP', 'GP API'];
+people_times['Diego'] = ['GP', 'GP API'];
+people_times['Fabio'] = ['GP'];
+people_times['Felipe Bastos'] = ['GP', 'GP XS4'];
+people_times['Fernando Conde'] = ['GP', 'GP XS4'];
+people_times['Gleyson'] = ['GP'];
+people_times['Gustavo'] = ['GP', 'GP XS4'];
+people_times['Henrique Coppola'] = ['GP', 'GP API'];
+people_times['Higor'] = ['GP', 'GP API'];
+people_times['Joao Vitor'] = ['GP', 'GP API'];
+people_times['Marcio H'] = ['GP', 'GP API'];
+people_times['Marcos Mello'] = ['GP', 'GP API'];
+people_times['Markonds'] = ['GP'];
+people_times['Navarro'] = ['GP'];
+people_times['Romulo'] = ['GP', 'GP XS4'];
+people_times['Sirlane'] = ['GP'];
+people_times['Vanessa'] = ['GP'];
+people_times['Vinicius'] = ['GP', 'GP XS4'];
+people_times['Waldemir'] = ['GP'];

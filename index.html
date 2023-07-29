@@ -3,46 +3,114 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Holiday JS</title>
-		<link rel="stylesheet" href="style.css">
-		<link rel="icon" type="image/x-icon" href="favicon.ico">
-		<script src="moment.js"></script>
-		<script src="moment-timezone.js"></script>
-		<script src="jquery-1.11.3.js"></script>
+		<link rel="icon" type="image/x-icon" href="./favicon.ico">
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/bulma.min.css" rel="stylesheet">
+		<link href="fontawesome/css/fontawesome.css" rel="stylesheet">
+		<link href="fontawesome/css/brands.css" rel="stylesheet">
+		<link href="fontawesome/css/solid.css" rel="stylesheet">
+		<script src="lib/moment.js"></script>
+		<script src="lib/moment-timezone.js"></script>
+		<script src="lib/jquery-1.11.3.js"></script>
 	</head>
 	
 	<script src="colors.js"></script>
 	<script src="feriados.js"></script>
 	<script src="times.js"></script>
-	<!-- Adicionar ferias nesse arquivo, no ano desejado -->
+	<script src="avatar.js"></script>
 	<script src="ferias.js"></script>
 	<script src="core.js"></script>
 	
 	<body>
-		<h2 style="text-shadow: 0px 0px 5px rgba(0,0,1500,0.5)">
-			<img src="coqueiro.png" style="display:inline;width:32px"/>&nbsp;<text id="titulo">Holiday JS</text>
-			&nbsp;<a id='prevAno' href='#' class='aAno'> prev </a>&nbsp;-&nbsp;<a id='nextAno' href='#' class='aAno'> next </a>
-		</h2>
-		<h5 style='color:red'>Data minima para cadastro de férias (hoje+45 dias) = <label id="data45dias" style="text-decoration: underline;"></label></h5>
-		<h4>Teams&nbsp;<select name='times' id='times'></select>&nbsp;<l id='membros' style='font-size: small;font-weight: normal;'></l></h4>
-		<div id="corpo">
-			<div id="demo"></div>
-			<table class="calendar" id="tbCal">
-				<tr id="tr1" class="nomeMes"></tr><tr id="tr2" class="nomeMes"></tr>
-				<tr id="tr3" class="nomeMes"></tr><tr id="tr4" class="nomeMes"></tr>
-				<tr id="tr5" class="nomeMes"></tr><tr id="tr6" class="nomeMes"></tr>
-				<tr id="tr7" class="nomeMes"></tr><tr id="tr8" class="nomeMes"></tr>
-				<tr id="tr9" class="nomeMes"></tr><tr id="tr10" class="nomeMes"></tr>
-				<tr id="tr11" class="nomeMes"></tr><tr id="tr12" class="nomeMes"></tr>
-			</table>
-			<br/>
-			<div style="width:100%;overflow:auto;">
-			<table id='tbFerias' class="ferias ferias2"></table>
+		<nav class="navbar" role="navigation" aria-label="main navigation">
+			<div class="navbar-brand title is-4">
+				<p class="navbar-item" style="text-shadow: 0px 0px 5px rgba(0,0,1500,0.5)">
+					<img src="img/coqueiro.png" />
+					<label id="titulo">Holiday JS<label>
+				</p>
 			</div>
-			<br />
-			<div style="width:100%;overflow:auto;">
-			<table id='tbCores' class="ferias ferias2"></table>
+		</nav>
+		<div style="padding:5px">
+			<div class="field has-addons" style="float:left">
+				<p class="control">
+					<a id='prevAno' class="button is-primary" href="#" title="ano anterior">
+						<span class="icon is-small">
+							<i class="fas fa-circle-left"></i>
+						</span>
+						<span id='anoMenos1'></span>
+					</a>
+				</p>
+				<p class="control">
+					<a class="button" href="#">
+						<span class="icon is-small">
+							<i class="fas fa-circle-up"></i>
+						</span>
+						<span><strong id='anoAtual'></strong></span>
+					</a>
+				</p>
+				<p class="control">
+					<a id='nextAno' class="button is-info" href="#" title="ano seguinte">
+						<span id='anoMais1'></span>
+						<span class="icon is-small">
+							<i class="fas fa-circle-right"></i>
+						</span>
+					</a>
+				</p>
+			</div>
+			<div class="field has-addons" style="padding-left:5px">
+				<div class="tags has-addons">
+					<span class="tag fa-regular fa-circle-exclamation is-danger is-large"></span>
+					<span class="tag is-danger is-large">Data mínima para cadastro: hoje+45 dias=&nbsp;<strong id='data45dias'></strong></span>
+				</div>
+			</div>			
+			<div class="field has-addons">
+				<p class="control is-small">
+					<a class="button is-static is-small">
+						<span class="icon">
+							<i class="fas fa-people-group"></i>
+						</span>
+						<span><strong>Teams</strong></span>
+					</a>
+				</p>
+				<p class="control is-small">
+					<span class="select is-small" style='display:inline-block;'>
+						<select name='times' id='times'></select>
+					</span>
+				</p>
+				&nbsp;&nbsp;
+				<p class="control">
+					<label class="checkbox">
+						<input type='checkbox' id='mostraHoje' checked='true' />&nbsp;Filtra Datas >= hoje ?&nbsp;
+					</label>
+					<label class="checkbox">
+						<input type='checkbox' id='mostraAvatar' />&nbsp;Mostra Avatar ?&nbsp;
+					</label>
+				</p>
+			</div>
+			<label id='membros' style='font-size: small;font-weight: normal;'></label>
+		</div>
+		<div style="padding:5px">
+			<div id="corpo">
+				<div id="demo"></div>
+				<table class="calendar" id="tbCal">
+					<tr id="tr1" class="nomeMes"></tr><tr id="tr2" class="nomeMes"></tr>
+					<tr id="tr3" class="nomeMes"></tr><tr id="tr4" class="nomeMes"></tr>
+					<tr id="tr5" class="nomeMes"></tr><tr id="tr6" class="nomeMes"></tr>
+					<tr id="tr7" class="nomeMes"></tr><tr id="tr8" class="nomeMes"></tr>
+					<tr id="tr9" class="nomeMes"></tr><tr id="tr10" class="nomeMes"></tr>
+					<tr id="tr11" class="nomeMes"></tr><tr id="tr12" class="nomeMes"></tr>
+				</table>
+				<br/>
+				<div style="width:100%;overflow:auto;">
+				<table id='tbFerias' class="tbDados"></table>
+				</div>
+				<br />
+				<div style="width:100%;overflow:auto;">
+				<table id='tbCores' class="tbDados"></table>
+				</div>
 			</div>
 		</div>
-		<br />
 	</body>
 </html>
+
+
