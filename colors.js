@@ -1,29 +1,21 @@
 var colors = [];
 
 colors['Alessandra'] = '#FF00FF';
-colors['Brasil'] = '#68FFA0';
 colors['Cecilia'] = '#BB2412';
-colors['Cesar Barros'] = '#F0E68C';
+colors['Cesar'] = '#F0E68C';
 colors['Diego'] = '#FF0980';
 colors['Erika'] = '#667C00';
 colors['Fabio'] = '#FF261B';
-colors['Felipe Bastos'] = '#BB2412';
-colors['Fernando Conde'] = '#84180F';
+colors['Fernando'] = '#84180F';
 colors['Greg'] = '#7A5B53';
 colors['Gustavo'] = '#F0E68C';
-colors['Henrique Coppola'] = '#000080';
 colors['Higor'] = '#AACD66';
-colors['Marcio H'] = '#5188FF';
-colors['Marcos Mello'] = '#8188FF';
+colors['Marcio'] = '#5188FF';
 colors['Navarro'] = '#000080';
-colors['Romulo'] = '#BB2412';
-colors['Sirlane'] = '#F0E68C';
 colors['Vanessa'] = '#FFFF00';
 colors['Vinicius'] = '#0000FF';
 colors['Waldemir'] = '#FF7F50';
-colors['Markonds'] = '#EEDDEE';
 colors['Joao Vitor'] = '#00B0F0';
-colors['Gleyson'] = '#A0F0D0';
 
 var textcolors = [];
 
