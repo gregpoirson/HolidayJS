@@ -4,7 +4,7 @@
 
 //os campos obrigatorios são : nome, start, end
 //o(s) campos opcionais são : observacao
-//exemplo : feriasBase.push({nome:'Diogo A', start:'27/02/2023', end:'12/03/2023', observacao: 'Bora Bora'});
+//exemplo : feriasBase.push({nome:'Diego', start:'27/02/2023', end:'12/03/2023', observacao: 'Bora Bora'});
 
 var feriasBase = [];
 
