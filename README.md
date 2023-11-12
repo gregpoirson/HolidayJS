@@ -7,6 +7,6 @@ Roadmap:
 
 . translate all code and comments into English
 
-. otimize the automtic textcolor algorithm
+. otimize the automatic textcolor algorithm
 
 . include a simple input color to allow new user to choose his/her color

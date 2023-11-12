@@ -5,7 +5,7 @@ var anoAtual = new Date().getFullYear();
 
 var feriasAno = [];
 var feriasDet = [];
-var selTime = '';
+var selTeam = '';
 
 const DATE_FORMAT = "DD/MM/YYYY";
 
@@ -14,39 +14,39 @@ function fillYear() {
     for (i = 1; i <= months.length; i++) {
         feriasDet[i] = {};
         var rangeMes = getMonthDateRange(anoAtual, i);
-        var nomes = [];
+        var names = [];
         var feriasMes = feriasAno.filter(f => parseInt(f.start.substring(3, 5)) == i || parseInt(f.end.substring(3, 5)) == i);
 
         //dias no mês
         for (var j = 1; rangeMes.start.isSameOrBefore(rangeMes.end); j++, rangeMes.start.add(1, 'days')) {
             for (pessoa of feriasMes) {
-                if (nomes[pessoa.nome] == undefined) {
-                    nomes[pessoa.nome] = [];
+                if (names[pessoa.name] == undefined) {
+                    names[pessoa.name] = [];
                 }
                 var start = moment(pessoa.start, DATE_FORMAT);
                 var end = moment(pessoa.end, DATE_FORMAT);
                 if (start.isSameOrBefore(rangeMes.start) && rangeMes.start.isSameOrBefore(end)) {
-                    nomes[pessoa.nome].push({
+                    names[pessoa.name].push({
                         dia: j,
-                        observacao: pessoa.observacao
+                        observation: pessoa.observation
                     })
                 }
             }
         }
 
-        for (pes in nomes) {
-            if (nomes[pes].length == 0) {
-                delete nomes[pes];
+        for (pes in names) {
+            if (names[pes].length == 0) {
+                delete names[pes];
             }
         }
-        feriasDet[i] = nomes;
+        feriasDet[i] = names;
     }
 }
 
 function initAno(novAno) {
     console.log('ano = ' + novAno);
 
-    feriasAno = feriasBase.filter(f => f.start.substring(6) == novAno || f.end.substring(6) == novAno);
+    feriasAno = leavesBase.filter(f => f.start.substring(6) == novAno || f.end.substring(6) == novAno);
     if (feriasAno.length == 0) {
         window.alert("Não foram definidas nenhuma ferias para o ano " + novAno);
         return;
@@ -77,7 +77,7 @@ function initAno(novAno) {
 
     fillYear();
 
-    changeTime($('option:selected', $('#times')).val());
+    changeTeam($('option:selected', $('#teams')).val());
 }
 
 $(function() {
@@ -92,15 +92,8 @@ $(function() {
     $('#nextAno').off().on('click', () => {
         initAno(anoAtual + 1);
     });
-    $('#times').on('change', () => {
-        changeTime($('option:selected', this).val());
-    });
-
-    const cboTime = document.getElementById('times');
-    //popular combo de times
-    times.forEach(time => {
-        var optTime = new Option(time.name, time.key);
-        cboTime.add(optTime);
+    $('#teams').on('change', () => {
+        changeTeam($('option:selected', this).val());
     });
 
     const chkmostraHoje = document.getElementById('mostraHoje');
@@ -115,19 +108,44 @@ $(function() {
         FillTabelaCores();
     });
 
+    fillComboTeams();
+
+    calculateTextColors();
+
     initAno(anoAtual);
 
     FillTabelaCores();
 
+    calculateMinDelay();
+
+    scrollAteHoje();
+
+});
+
+function calculateMinDelay() {
     //D+45dias
     var today = new Date();
     var numberOfDaysToAdd = 45;
     var result = new Date(today.setDate(today.getDate() + numberOfDaysToAdd)).toLocaleDateString();
     const dayMais45 = document.getElementById('data45dias');
     dayMais45.textContent = result;
+}
 
-    scrollAteHoje();
-});
+function fillComboTeams() {
+    const cboTeam = document.getElementById('teams');
+    //popular combo de teams
+    teams.forEach(team => {
+        var optTeam = new Option(team.name, team.key);
+        cboTeam.add(optTeam);
+    });
+}
+
+function calculateTextColors() {
+    for (let idx in colors)
+    {
+        textcolors[colors[idx]] = getTextColor(colors[idx]);
+    }    
+}
 
 function getMonthDateRange(year, month) {
     var startDate = moment([year, month - 1]);
@@ -149,12 +167,12 @@ function scrollAteHoje() {
     }
 }
 
-function changeTime(selecao) {
+function changeTeam(selecao) {
     var membros = [];
     if (selecao != '') {
-        for (var key in people_times) {
-            var value = people_times[key];
-            if (people_times[key].indexOf(selecao) >= 0) {
+        for (var key in people_teams) {
+            var value = people_teams[key];
+            if (people_teams[key].indexOf(selecao) >= 0) {
                 membros.push(key);
             }
         }
@@ -162,7 +180,7 @@ function changeTime(selecao) {
     } else {
         $('#membros').text('');
     }
-    if (!CheckTimes()) {
+    if (!CheckTeams()) {
         return;
     }
     RefreshFerias(selecao);
@@ -174,7 +192,7 @@ function FillTabelaCores() {
     tbCores.empty();
     var tr = "<tr><td class='tbColHead'>Cores: </td>";
 
-    //vamo ordenar por nome (achar uma solução melhor...)
+    //vamo ordenar por name (achar uma solução melhor...)
     var arcol = [];
     for (pess in colors) {
         arcol.push(pess);
@@ -212,21 +230,21 @@ function RefreshFeriasConsolidado() {
     var tr4 = "<tr><td class='tbColHead'>Dias</td>";
     for (var cnt = 0; cnt < feriasAno.length; cnt++) {
         var pessoa = feriasAno[cnt];
-        //mostrar apenas o time escolhido, ou todos
-        if (selTime != '' && people_times[pessoa.nome].indexOf(selTime) < 0) {
+        //mostrar apenas o team escolhido, ou todos
+        if (selTeam != '' && people_teams[pessoa.name].indexOf(selTeam) < 0) {
             continue;
         }
         var start = moment(pessoa.start, DATE_FORMAT);
         var end = moment(pessoa.end, DATE_FORMAT);
         var col = "";
-        if (textcolors[colors[pessoa.nome]] != undefined) {
-            col = "color:" + textcolors[colors[pessoa.nome]]
+        if (textcolors[colors[pessoa.name]] != undefined) {
+            col = "color:" + textcolors[colors[pessoa.name]]
         }
         var imgAvatar = "";
-        if (chkmostraAvatar.checked && avatar[pessoa.nome] != undefined) {
-            imgAvatar = `&nbsp;<img src='avatar/${avatar[pessoa.nome]}.png' class='avatar avatar_md'/>`;
+        if (chkmostraAvatar.checked && avatar[pessoa.name] != undefined) {
+            imgAvatar = `&nbsp;<img src='avatar/${avatar[pessoa.name]}.png' class='avatar avatar_md'/>`;
         }
-        tr1 += `<td style='background-color:${colors[pessoa.nome]};${col}' title='${pessoa.observacao ?? "ferias"}'>${pessoa.nome}${imgAvatar}</td>`;
+        tr1 += `<td style='background-color:${colors[pessoa.name]};${col}' title='${pessoa.observation ?? "ferias"}'>${pessoa.name}${imgAvatar}</td>`;
         tr2 += `<td>${pessoa.start}</td>`;
         tr3 += `<td>${pessoa.end}</td>`;
         tr4 += `<td>${(end.diff(start, 'days') + 1)}</td>`;
@@ -237,34 +255,34 @@ function RefreshFeriasConsolidado() {
     tbFerias.append(tr4 + '</tr>');
 }
 
-function CheckTimes() {
-    var nomesTimes = [];
-    for (var key in people_times) {
-        nomesTimes.push(key);
+function CheckTeams() {
+    var namesTeams = [];
+    for (var key in people_teams) {
+        namesTeams.push(key);
     }
     var erros = [];
-    //verifica se todas as pessoas pertencem a um time
+    //verifica se todas as pessoas pertencem a um team
     for (pes of feriasAno) {
-        if (nomesTimes.indexOf(pes.nome) < 0 && !erros.includes(pes.nome)) {
-            erros.push(pes.nome);
+        if (namesTeams.indexOf(pes.name) < 0 && !erros.includes(pes.name)) {
+            erros.push(pes.name);
         }
     }
     if (erros.length == 0) {
         return true;
     }
-    var nomes = erros.join('<br />');
-    //alert("As pessoas seguintes não pertencem a nenhum time, favor checar o arquivo times.js : " + nomes);
-    document.getElementById("corpo").innerHTML = "<h2 style='color:red;'>As pessoas seguintes não pertencem a nenhum time, favor ajustar o arquivo times.js</h2><h3 style='color:red'>" + nomes + "</h3>";
+    var names = erros.join('<br />');
+    //alert("As pessoas seguintes não pertencem a nenhum team, favor checar o arquivo teams.js : " + nomes);
+    document.getElementById("corpo").innerHTML = "<h2 style='color:red;'>As pessoas seguintes não pertencem a nenhum team, favor ajustar o arquivo teams.js</h2><h3 style='color:red'>" + names + "</h3>";
     return false;
 }
 
-function RefreshFerias(selTime) {
+function RefreshFerias(selTeam) {
     var hoje = moment().format(DATE_FORMAT);
     $('#tbCal td').remove();
 
     const chkmostraAvatar = document.getElementById('mostraAvatar');
 
-    //linha dos dias do mês atual, com weekend, feriado, ...
+    //linha dos dias do mês atual, com weekend, dayoff, ...
     for (i = 1; i <= months.length; i++) {
         var range = getMonthDateRange(anoAtual, i);
         var tds = `<td class='month-name'>${months[i - 1]}</td>`;
@@ -279,11 +297,11 @@ function RefreshFerias(selTime) {
             }
             var curDia = range.start.format(DATE_FORMAT);
 
-            //feriado ?
-            var feriado = feriados.find(f => f.data == curDia);
-            if (feriado != undefined) {
-                estil.push("feriado");
-                title.push("feriado: " + feriado.desc);
+            //dayoff ?
+            var dayoff = daysoff.find(f => f.date == curDia);
+            if (dayoff != undefined) {
+                estil.push("dayoff");
+                title.push("dayoff: " + dayoff.desc);
             }
             //hoje ?
             if (curDia == hoje) {
@@ -297,8 +315,8 @@ function RefreshFerias(selTime) {
         var idLastRow = "tr" + i;
         var kId = 1;
         for (pes in feriasDet[i]) {
-            //mostrar apenas o time escolhido, ou todos
-            if (selTime != '' && people_times[pes].indexOf(selTime) < 0) {
+            //mostrar apenas o team escolhido, ou todos
+            if (selTeam != '' && people_teams[pes].indexOf(selTeam) < 0) {
                 continue;
             }
             var newId = `tr${i}_${kId++}`;
@@ -314,7 +332,7 @@ function RefreshFerias(selTime) {
                 //essa pessoa tem ferias nesse dia ? vamos pegar a observação e a cor
                 var fd = feriasDet[i][pes].find(d => d.dia == j);
                 if (fd != undefined) {
-                    title = fd.observacao ?? 'ferias';
+                    title = fd.observation ?? 'ferias';
                     bkg = colors[pes];
                     text = ' ';
                     cn = "hoverName";
@@ -322,9 +340,9 @@ function RefreshFerias(selTime) {
                 }
                 tds += `<td class='${cn}' style='background-color:${bkg}' title='${title}'>${text}</td>`;
             }
-            var colnome = "";
+            var colname = "";
             if (textcolors[colors[pes]] != undefined) {
-                colnome = "color:" + textcolors[colors[pes]]
+                colname = "color:" + textcolors[colors[pes]]
             }
 
             var imgAvatar = "";
@@ -332,13 +350,13 @@ function RefreshFerias(selTime) {
                 imgAvatar = `&nbsp;<img src='avatar/${avatar[pes]}.png' class='avatar avatar_sm'/>`;
             }
 
-            var nometd = `<td style='background-color:${colors[pes]};${colnome}'><label class='lblNome'>${pes}${imgAvatar}</label></td>`;
-            $("#" + idLastRow).after(`<tr id='${newId}' title='${pes}: ${numDias} dias' style='font-size: 9px;'>${nometd}${tds}</tr>`);
+            var nametd = `<td style='background-color:${colors[pes]};${colname}'><label class='lblNome'>${pes}${imgAvatar}</label></td>`;
+            $("#" + idLastRow).after(`<tr id='${newId}' title='${pes}: ${numDias} dias' style='font-size: 9px;'>${nametd}${tds}</tr>`);
             idLastRow = newId;
         }
     }
 
-    hoverTD();
+    //hoverTD();
 }
 
 function hoverTD() {
